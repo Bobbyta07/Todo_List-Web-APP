@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %} To-Do List with Timer {% endblock %}
+
+{% block style %} <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"> {% endblock %}
+
+
+{% block content %}
+
+
+<!--start hero-->
+
+<div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold text-body-emphasis">Schedule Your Tasks, Stay on Track</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Plan your tasks by setting deadlines and adding timers for focused productivity. Manage your day efficiently and never miss a task again</p>
+    </div>
+    <div class="overflow-hidden" style="max-height: 30vh;">
+      <div class="container px-5">
+        <img src="{{url_for('static', filename='/images/task1.jpg')}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+<!--end hero-->
+
+
+
+<div class="container mb-5">
+    <h3 class="text-center">Schedule Task</h3>
+    <div class="row">
+<!--        col form-->
+
+        <div class="col">{{render_form(form, novalidate=True)}}</div>
+<!--        col task-->
+        <div class="col mt-4">
+
+            {% if tasklist: %}
+            {% for task in tasklist %}
+            <ul class="list-group mb-2">
+
+
+  <li class="list-group-item d-flex justify-content-between align-items-center"><strong>
+          {{task["task"] }}
+  </strong>
+
+    <span class="badge text-bg-primary rounded-pill">{{task['date']}}  </span>
+      <a href="{{url_for('delete_task', id=task['id'])}}"> <button type="button"  class="btn btn-outline-danger">Remove</button> </a>
+  </li>
+
+
+</ul>
+
+             {% endfor %}
+                {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <hr>
+</div>
+
+
+<!--timer Task-->
+
+ <div class="container mt-5">
+     <div class="row">
+         <h3 class="text-center">To-Do List with Timer</h3>
+         <div class="col px-4">
+
+
+    <!-- Input form -->
+    <div class="input-group mt-1">
+      <input type="text" id="taskInput" class="form-control" placeholder="Enter task" aria-label="Enter task">
+        <br>
+      <input type="number" id="timerInput" class="form-control" placeholder="Set timer (minutes)" aria-label="Set timer">
+      <button class="btn btn-primary" id="addTaskBtn" type="button">Add Task</button>
+    </div>
+             </div>
+         <div class="col">
+
+    <!-- To-Do List -->
+    <ul class="list-group" id="todoList">
+      <!-- Dynamically added tasks will go here -->
+    </ul>
+             </div>
+         </div>
+  </div>
+
+<!--end timer-->
+
+{% endblock %}
+
+{% block script %}
+
+ <script src="{{url_for('static', filename='js/app.js')}}"></script>
+
+{% endblock %}
+
+

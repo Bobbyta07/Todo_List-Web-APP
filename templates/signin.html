@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form, render_hidden_errors%}
+
+{% block title %} Signup {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+ <div class="row">
+
+  <div class="col">
+   <h1 class="my-4">Log in to save and access your lists</h1>
+    {{ render_hidden_errors(form) }}
+
+{{ render_form(form) }}
+  </div>
+  <div class="col"></div>
+ </div>
+</div>
+
+
+
+
+
+{% endblock %}
